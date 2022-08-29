@@ -1,26 +1,47 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<template> <!--Пишется разметка компонента-->
+<div class="app">
+  <post-form @create="createPost"/>
+  <post-list :posts="posts" />
+</div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script> //Описывается логика компонета
 
-export default {
-  name: 'App',
+import PostList from "@/components/PostList";
+import PostForm from "./components/PostForm";
+
+export default  {
   components: {
-    HelloWorld
-  }
+    PostList, PostForm
+  },
+  data() {
+    return {
+      posts: [
+        {id: 1, title: 'JavaScript', body: 'Описание поста JavaScript'},
+        {id: 2, title: 'NodeJS', body: 'Описание поста NodeJS'},
+        {id: 3, title: 'Vue', body: 'Описание поста Vue'},
+        {id: 4, title: 'React', body: 'Описание поста React'},
+      ],
+    }
+  },
+  methods: { // Поле для создания функций
+    createPost(post) {
+      this.posts.push(post)
+      }
+    },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style> /*флаг scoped - говорит о том, что стили будут применены только к данному компоненту и не будут доступны из вне*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+.app {
+  padding: 15px;
+}
+
+
 </style>
